@@ -1,6 +1,8 @@
 /**
  * Created by Administrator on 2015/12/7.
  */
+var fortune = require('./lib/fortune.js');
+
 var express = require('express');
 
 var app = express();
@@ -8,14 +10,6 @@ var app = express();
 var handlebars = require('express3-handlebars').create({defaultLayout : 'main'});
 
 app.use(express.static(__dirname + '/public'));
-
-var fortunes = [
-    "Conquer your fears or they will conquer you.",
-    "Rivers need springs.",
-    "Do not fear what you don't know.",
-    "You will have a pleasant surprise.",
-    "Whenever possible, keep it simple.",
-];
 
 app.engine('handlebars', handlebars.engine);
 
@@ -29,8 +23,7 @@ app.get('/', function(req, res){
 });
 
 app.get('/about', function(req, res){
-    var randomFortunes = fortunes[Math.floor(Math.random() * fortunes.length)];
-    res.render('about', {fortune : randomFortunes});
+    res.render('about', {fortune : fortune.getFortune()});
 });
 
 //custom 404 page
